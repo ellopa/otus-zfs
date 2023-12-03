@@ -1,6 +1,6 @@
-# Практические навыки работы с ZFS
+## Практические навыки работы с ZFS
 
-## Определяем алгоритм с наилучшим сжатием
+### Определяем алгоритм с наилучшим сжатием
 
 - Смотрим список всех дисков, которые есть в виртуальной машине: lsblk
 
@@ -32,8 +32,7 @@ sdi      8:128  0  512M  0 disk
 
 - Смотрим информацию о пулах: zpool list
 
-Команда zpool status показывает информацию о каждом диске, состоянии сканирования и об ошибках чтения, записи и совпадения хэш-сумм. 
-Команда zpool list показывает информацию о размере пула, количеству занятого и свободного места, дедупликации и т.д.
+> Команда zpool status показывает информацию о каждом диске, состоянии сканирования и об ошибках чтения, записи и совпадения хэш-сумм. Команда zpool list показывает информацию о размере пула, количеству занятого и свободного места, дедупликации и т.д.
 
 
 ```
@@ -47,14 +46,10 @@ otus4   480M  91.5K   480M        -         -     0%     0%  1.00x    ONLINE  -
 
 - Добавим разные алгоритмы сжатия в каждую файловую систему:
 
-    • Алгоритм lzjb: 
-      zfs set compression=lzjb otus1
-    • Алгоритм lz4: 
-      zfs set compression=lz4 otus2
-    • Алгоритм gzip: 
-      zfs set compression=gzip-9 otus3
-    • Алгоритм zle:  
-      zfs set compression=zle otus4
+> Алгоритм lzjb: zfs set compression=lzjb otus1
+> Алгоритм lz4: zfs set compression=lz4 otus2
+> Алгоритм gzip: zfs set compression=gzip-9 otus3
+> Алгоритм zle: zfs set compression=zle otus4
 
 ```
 [root@zfs ~]# zfs set compression=lzjb otus1
@@ -142,7 +137,7 @@ otus4  compressratio         1.00x                  -
 ```
 > Таким образом, у нас получается, что алгоритм gzip-9 самый эффективный по сжатию.
 
-## Определение настроек пула
+### Определение настроек пула
 
 - Скачиваем архив в домашний каталог: 
 
@@ -332,35 +327,35 @@ otus  feature@bookmark_v2            enabled                        local
 
 - C помощью команды grep можно уточнить конкретный параметр, например:
 
-  • Размер: zfs get available otus
+> Размер: zfs get available otus
 
 ```
 [root@zfs ~]# zfs get available otus
 NAME  PROPERTY   VALUE  SOURCE
 otus  available  350M   -
 ```
-  • Тип: zfs get readonly otus
+> Тип: zfs get readonly otus
 
 ```
 [root@zfs ~]# zfs get readonly otus
 NAME  PROPERTY  VALUE   SOURCE
 otus  readonly  off     default
 ```
-  • Значение recordsize: zfs get recordsize otus
+> Значение recordsize: zfs get recordsize otus
 
 ```
 [root@zfs ~]# zfs get recordsize otus
 NAME  PROPERTY    VALUE    SOURCE
 otus  recordsize  128K     local
 ```
-  • Тип сжатия (или параметр отключения): zfs get compression otus
+> Тип сжатия (или параметр отключения): zfs get compression otus
 
 ```
 [root@zfs ~]# zfs get compression otus
 NAME  PROPERTY     VALUE     SOURCE
 otus  compression  zle       local
 ```
-  • Тип контрольной суммы: zfs get checksum otus
+> Тип контрольной суммы: zfs get checksum otus
 
 ```
 [root@zfs ~]# zfs get checksum otus
@@ -368,7 +363,7 @@ NAME  PROPERTY  VALUE      SOURCE
 otus  checksum  sha256     local
 ```
 
-## Работа со снапшотом, поиск сообщения от преподавателя
+### Работа со снапшотом, поиск сообщения от преподавателя
 
 - Скачаем файл, указанный в задании:
 
@@ -424,7 +419,7 @@ https://github.com/sindresorhus/awesome
 ```
 > Текст из файла **secret_message**: <https://github.com/sindresorhus/awesome>
 
-## Vagrantfile для конфигурации сервера (установки и настройки ZFS) с отдельным Bash-скриптом добавленым в Vagrantfile
+### Vagrantfile для конфигурации сервера (установки и настройки ZFS) с отдельным Bash-скриптом добавленым в Vagrantfile
  
 - [Vagrantfile](Vagrantfile)
 - [Скрипт для конфигурации сервера (установки и настройки ZFS)](setup_zfs.sh)
